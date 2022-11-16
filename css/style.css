@@ -1,0 +1,455 @@
+@charset "utf-8";
+
+/* Fonts */
+@font-face {
+  font-family: 'Open Sans';
+  src: url('OpenSans-Regular.eot');
+  src: url('../fonts/OpenSans-Regular.woff') format('woff'), url('../fonts/OpenSans-Regular.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('OpenSans-Regular.eot');
+  src: url('../fonts/OpenSans-SemiBold.woff') format('woff'), url('../fonts/OpenSans-SemiBold.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('OpenSans-Regular.eot');
+  src: url('../fonts/Roboto-Regular.woff') format('woff'), url('../fonts/Roboto-Regular.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Custom colors */
+:root {
+  --text-color: #333333;
+  --black: #000;
+  --white: #FFFFFF;
+  --orange: #FF5C00;
+  --scrollbar: #CCB26E;
+  --check: #999999;
+  --background: #424242;
+  --tooltip: #BCBCBC;
+}
+
+/* Common styles */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--text-color);
+}
+
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+.reset-input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.container {
+  max-width: 2698px;
+  padding: 0 10px;
+}
+
+.simplebar-content-wrapper {
+  overflow: auto;
+}
+
+/* Styles */
+.custom {
+  background-color: var(--background);
+}
+
+.custom__inner {
+  display: flex;
+  align-items: flex-start;
+  padding: 70px 36px 110px 81px;
+}
+
+.custom__categories {
+  max-width: 178px;
+  padding: 21px 29px 26px 31px;
+  margin-right: 58px;
+  background: var(--white);
+  border-radius: 10px;
+}
+
+.custom__categories-title {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  margin-bottom: 18px;
+}
+
+.custom__list {
+  max-width: 117px;
+}
+
+.custom__item:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.custom__checkbox {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}
+
+.custom__label {
+  position: relative;
+  padding-left: 24px;
+  cursor: pointer;
+}
+
+.custom__box {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--scrollbar);
+  border-radius: 3px;
+}
+
+.custom__box::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 17px;
+  background: url('../images/checkmark.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+
+.custom__text {
+  line-height: 19px;
+  transition: color .3s ease-in-out;
+}
+
+.custom__checkbox:checked+.custom__box::before {
+  opacity: 1;
+}
+
+.custom__checkbox.focus-visible~.custom__text {
+  color: var(--scrollbar);
+}
+
+.choices {
+  z-index: 10;
+  margin-right: 58px;
+  transition: all .3s ease-in-out;
+}
+
+.choices__inner {
+  width: 176px;
+  min-height: 40px;
+  padding: 5px 15px;
+  border: 2px solid var(--scrollbar);
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.is-open .choices__inner {
+  width: 176px;
+  min-height: 40px;
+  padding: 5px 15px;
+  border: 2px solid var(--scrollbar);
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.choices__list--single {
+  padding: 0px 16px 0px 0px;
+}
+
+.choices__list--dropdown {
+  z-index: -1;
+  top: 9%;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border: 1px solid var(--scrollbar);
+  border-radius: 10px;
+}
+
+.choices__list--dropdown .choices__item--selectable {
+  padding-right: 0px;
+}
+
+.choices__list--dropdown .choices__item--selectable:first-child {
+  padding-top: 20px;
+}
+
+.choices__list--dropdown .choices__item {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.choices[data-type*=select-one]:after {
+  content: '';
+  position: absolute;
+  right: 11.5px;
+  top: 48.8%;
+  height: 8px;
+  width: 14px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  background-image: url('../images/arrowdown.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: -2.5px;
+  pointer-events: none;
+}
+
+.choices[data-type*=select-one].is-open:after {
+  background-image: url('../images/arrowup.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: -2.5px;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted:after {
+  display: none;
+}
+
+.map {
+  width: 460px;
+  height: 460px;
+  margin-right: 85px;
+}
+
+[class*="copyrights-pane"] {
+  display: none !important;
+}
+
+[class*='ground-pane'] {
+  filter: grayscale(1);
+}
+
+.scrollbox {
+  height: 310px;
+  width: 399px;
+  padding: 20px 30px 0 29px;
+  margin-right: 94px;
+  background: var(--white);
+}
+
+.simplebar-track.simplebar-vertical {
+  width: 6px;
+}
+
+.simplebar-scrollbar:before {
+  position: absolute;
+  content: '';
+  background: var(--scrollbar);
+  border-radius: 5px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+}
+
+.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+  top: 7px;
+  bottom: 106px;
+}
+
+.simplebar-scrollbar.simplebar-visible::before {
+  opacity: 1;
+}
+
+.simplebar-track {
+  right: 7px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 440px;
+  padding: 38px 30px 40px 30px;
+  margin-right: 78px;
+  background-color: rgba(0, 0, 0, .4);
+  border-radius: 10px;
+}
+
+.form__input {
+  width: 380px;
+  padding: 24px 20px;
+  background: #FFFFFF;
+  border: 1px solid #FF5C00;
+  border-radius: 10px;
+}
+
+.form__input::placeholder {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--check);
+}
+
+.form__label {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  margin-bottom: 25px;
+}
+
+.js-validate-error-label {
+  position: absolute;
+  top: -17px;
+  left: 19px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 2px;
+}
+
+.form__btn {
+  background-color: transparent;
+  border: none;
+  background: #FF5C00;
+  padding: 18.5px 53px;
+  border-radius: 10px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.text__box {
+  max-width: 375px;
+  padding: 20px 78px 20px 29px;
+  background-color: var(--white);
+}
+
+.text__content {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.text__tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
+  border-radius: 50%;
+  background-color: var(--tooltip);
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.text__tooltip::before {
+  content: 'Глава 2, страница 176';
+  position: absolute;
+  top: -46px;
+  left: -72px;
+  display: block;
+  width: 163px;
+  padding: 7px 15px 14px;
+  background: #666666;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--white);
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+.text__tooltip:after {
+  content: '';
+  position: absolute;
+  bottom: 18px;
+  right: 1px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 7.5px 10px 7.5px;
+  border-color: transparent transparent #666666 transparent;
+  transform: rotate(180deg);
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+.text__tooltip:hover {
+  background-color: var(--scrollbar);
+  color: var(--white);
+}
+
+.text__tooltip:hover.text__tooltip::before,
+.text__tooltip:hover.text__tooltip::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.text__tooltip.focus-visible {
+  background-color: var(--scrollbar);
+  color: var(--white);
+}
+
+.text__tooltip.focus-visible.text__tooltip::before,
+.text__tooltip.focus-visible.text__tooltip::after {
+  opacity: 1;
+  visibility: visible;
+}
